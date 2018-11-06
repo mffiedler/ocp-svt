@@ -21,7 +21,7 @@ Warning: Permanently added 'compute.3344720975295689658' (ECDSA) to the list of 
 
 ## Create a single node cluster
 ```sh
-[mifiedle@mifiedle-rdu-redhat-com ~]$ create-cluster mff-cluster
+[mifiedle@mifiedle-rdu-redhat-com ~]$ create-cluster nested
 ```
 
 ## Use oc normally to interact with the cluster
