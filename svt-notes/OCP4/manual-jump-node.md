@@ -3,7 +3,7 @@
 1. Find a master instance in the AWS console and note which VPC and security group it is using
 1. Go to Security Groups and find that group and highlight it
 1. Click the Inbound tab and Edit rules
-1. Find the rule for port 22 and change the CIDR to 0.0.0.0
+1. Find the rule for port 22 and change the CIDR to 0.0.0.0/0
 
 ## Boot an instance that can join the network
 1. In AWS console go to VPC and then Subnets
