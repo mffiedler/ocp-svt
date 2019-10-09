@@ -1,5 +1,5 @@
 # Installing downstream (pre-GA) 3rd level Operators with OperatorHub/OLM
-## Get access to rh-ospbs-operators registry
+## Get access to rh-osbs-operators registry
 Put your name and quay.io info here:  https://docs.google.com/spreadsheets/d/1OyUtbu9aiAi3rfkappz5gcq5FjUbMQtJG4jZCNqVT20/edit#gid=0
 ## Use @anli's tools to synch operator images to your cluster
 - Run from a shell with KUBECONFIG set that has **oc** access to your cluster
