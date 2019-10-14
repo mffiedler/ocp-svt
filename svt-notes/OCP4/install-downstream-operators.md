@@ -5,8 +5,8 @@ Put your name and quay.io info here:  https://docs.google.com/spreadsheets/d/1Oy
 - Run from a shell with KUBECONFIG set that has **oc** access to your cluster
 - Clone the v3-testfiles repo
 ```sh
-$ git clone https://github.com/openshift-qe/v3-testfiles
-$ cd logging/tools
+$ git clone http://git.app.eng.bos.redhat.com/git/openshift-misc.git/
+$ cd jenkins/v4-image-test/app_registry_tools
 ```
 - **make sure Python 3 is active either as the system python or via virtualenv**
 - edit getOperatorSourceMetadata.sh and set REPOSITORYS for the operators you want.   Examples:
