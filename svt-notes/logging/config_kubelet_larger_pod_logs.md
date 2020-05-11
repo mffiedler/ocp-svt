@@ -29,6 +29,7 @@ spec:
       custom-kubelet: bigger-logs
   kubeletConfig:
     containerLogMaxSize: 200Mi
+    containerLogMaxFiles: 10
 ```
 
 Then create the KubeletConfig, wait a bit and then check the machineconfigpools:
