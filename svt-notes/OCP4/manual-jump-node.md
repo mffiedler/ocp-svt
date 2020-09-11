@@ -48,3 +48,62 @@ When the instance boots, SSH using your key and you should be able to SSH to nod
 1. Now you should be able to go in that jump node as ssh -i libra.pem redhat@<public_ip> and then to any master node from it
 
 **IMPORTANT** Delete this instance before destroying cluster or else it will hang/timeout and you will have manual cleanup to do.
+
+# Creating a jump node in cluster VPC from console (GCP)
+## By To Hung Sze - Sept 2020
+## Create a VM instsance
+1 
+export IMAGE_FAMILY="projects/centos-cloud/global/images/family/centos-7"
+
+2
+gcloud compute instances create tsze-vpc-bastion1 --image-family=${IMAGE_FAMILY} --subnet=<cluster_infra_id>-master-subnet --tags=<your_tag> --zone=us-central1-b
+
+(<cluster_infra_id>: e.g. cmead-kata17-tkkqb 
+zone to match your cluster’s location)
+
+(if you delete the machine and start over again, you can’t use the same name - dns entry will not be updated in time)
+
+## Create Firewall rule
+From GCP console, create a firewall and specify <your_infra_id>-network for your cluster as the network, specify the tag from above and allow ssh port 22 and icmp (tag e.g. tsze-vpc-bastion, priority 999, ip range 0.0.0.0/0) 
+Test by pinging the host and ssh into the bastion host from GCP console (use browser ssh or ssh terminal - see below) (if you don’t ping, you don’t need to allow icmp)
+
+
+## ssh into the machine
+Try (in order of preference)
+1 using openshift-qe.pem
+	ssh -i <path-to>/openshfit-qe.pem cloud-user@<ip>
+
+(openshfit-qe key pair in:
+https://code.engineering.redhat.com/gerrit/#/admin/projects/cucushift-internal)
+
+2 via gcloud
+commandline
+	gcloud beta compute ssh --zone “<your_zone>” “<machine_name>” --project “openshift-qe”
+Or 	
+from gcp console using browser, there is a drop down labeled ssh, choose “Open in browser window”
+
+3 If #1 & #2 don’t work, try 
+	ssh -i <path-to>/openshfit-qe.pem <your_redhat_id>@<ip>
+Or
+	ssh -i <path-to>/openshfit-qe.pem cloud-user@<ip>
+
+(#3 here works if you have added your key to openshift-qe service account when you tried to download openshift-qe key pair which is available in cucushift/cucushift-internal/config/keys repo)
+
+4 If you can ssh in using #3 but wants to use openshift-qe.pem
+After ssh in via gcp (commandline or browser)
+Create authorized_keys file
+pwd to find out the account name for you
+
+ssh core@10.0.0.4 (does not matter if the ip is an actual master that exists, you should not be able to ssh into the machine but should get permission denied and .ssh directory should be created)
+
+Create authorized_keys file under .ssh directory created above
+Copy openshift-qe.pub content into the authorized_keys file
+
+chmod 755 .ssh
+chmod 644 .ssh/authorized_keys
+
+Note: When you are done and want to destroy the cluster, delete the VM and firewall first - just stopping the VM isn't enough
+
+Reference:
+https://docs.google.com/document/d/1kHgPdplX6R8IWW4kia1mhKHjse6eRjBt2-W5ANzFP8o
+
