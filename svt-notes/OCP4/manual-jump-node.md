@@ -75,7 +75,8 @@ Test by pinging the host and ssh into the bastion host from GCP console (use bro
 ## ssh into the machine
 Try (in order of preference)
 1 using openshift-qe.pem
-	ssh -i <path-to>/openshfit-qe.pem cloud-user@<ip>
+	ssh -i <path-to>/openshfit-qe.pem cloud-user@<ip> or
+	ssh -i <path-to>/openshfit-qe.pem core@<ip> 
 
 (openshfit-qe key pair in:
 https://code.engineering.redhat.com/gerrit/#/admin/projects/cucushift-internal)
